@@ -10,8 +10,13 @@ By default, approval tests are run, coverage reports are generated and served vi
 
 The generated HTML coverage reports can easily be inspected and live monitored by
 
+
 ```bash
-$ bash run_test_and_coverage.sh
+$ make test
+```
+
+```bash
+$ make serv
 ```
 
 After each run, the HTML reports and view are live updated (hot reload)!
