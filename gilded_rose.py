@@ -8,43 +8,89 @@ class Item:
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
 
 
+class AgedBrieItem(Item):
+    def __init__(self, sell_in: int, quality: int):
+        super().__init__("Aged Brie", sell_in, quality)
+
+    def update_quality(self):
+        if self.quality < 50:
+            self.quality = self.quality + 1
+        self.sell_in = self.sell_in - 1
+        if self.sell_in < 0:
+            if self.quality < 50:
+                self.quality = self.quality + 1
+
+
+class BackstagePassesItem(Item):
+    def __init__(self, sell_in: int, quality: int):
+        super().__init__("Backstage passes to a TAFKAL80ETC concert", sell_in, quality)
+
+    def update_quality(self):
+        if self.quality < 50:
+            self.quality = self.quality + 1
+            if self.sell_in < 11:
+                if self.quality < 50:
+                    self.quality = self.quality + 1
+            if self.sell_in < 6:
+                if self.quality < 50:
+                    self.quality = self.quality + 1
+        self.sell_in = self.sell_in - 1
+        if self.sell_in < 0:
+            self.quality = 0
+
+
+class SulfurasItem(Item):
+    def __init__(self, sell_in: int, quality: int):
+        super().__init__("Sulfuras, Hand of Ragnaros", sell_in, quality)
+
+    def update_quality(self):
+        pass
+
+
+class ConjuredItem(Item):
+    def __init__(self, sell_in: int, quality: int):
+        super().__init__("Conjured butter", sell_in, quality)
+
+    def update_quality(self):
+        if self.quality > 0:
+            self.quality = self.quality - 2
+        self.sell_in = self.sell_in - 1
+        if self.sell_in < 0:
+            if self.quality > 0:
+                self.quality = self.quality - 2
+
+
+class GenericItem(Item):
+    def __init__(self, name: str, sell_in: int, quality: int):
+        super().__init__(name, sell_in, quality)
+
+    def update_quality(self):
+        if self.quality > 0:
+            self.quality = self.quality - 1
+        self.sell_in = self.sell_in - 1
+        if self.sell_in < 0:
+            if self.quality > 0:
+                self.quality = self.quality - 1
+
+
+class ItemFactory:
+    def createItem(self, name: str, sell_in: int, quality: int):
+        if name == "Aged Brie":
+            return AgedBrieItem(sell_in=sell_in, quality=quality)
+        elif name == "Backstage passes to a TAFKAL80ETC concert":
+            return BackstagePassesItem(sell_in=sell_in, quality=quality)
+        elif name == "Sulfuras, Hand of Ragnaros":
+            return SulfurasItem(sell_in=sell_in, quality=quality)
+        elif name == "Conjured butter":
+            return ConjuredItem(sell_in=sell_in, quality=quality)
+        else:
+            return GenericItem(name=name, sell_in=sell_in, quality=quality)
+
+
 class GildedRose:
     def __init__(self, items: [Item]):
         self.items = items
 
     def update_quality(self):
         for item in self.items:
-            self.update_item_quality(item)
-
-    def update_item_quality(self, item: Item):
-        if item.name == "Aged Brie":
-            if item.quality < 50:
-                item.quality = item.quality + 1
-            item.sell_in = item.sell_in - 1
-            if item.sell_in < 0:
-                if item.quality < 50:
-                    item.quality = item.quality + 1
-
-        elif item.name == "Backstage passes to a TAFKAL80ETC concert":
-            if item.quality < 50:
-                item.quality = item.quality + 1
-                if item.sell_in < 11:
-                    if item.quality < 50:
-                        item.quality = item.quality + 1
-                if item.sell_in < 6:
-                    if item.quality < 50:
-                        item.quality = item.quality + 1
-            item.sell_in = item.sell_in - 1
-            if item.sell_in < 0:
-                item.quality = 0
-
-        elif item.name == "Sulfuras, Hand of Ragnaros":
-            pass
-
-        else:
-            if item.quality > 0:
-                item.quality = item.quality - 1
-            item.sell_in = item.sell_in - 1
-            if item.sell_in < 0:
-                if item.quality > 0:
-                    item.quality = item.quality - 1
+            item.update_quality()
