@@ -1,5 +1,5 @@
 default:
-	pytest && coverage run --branch --source gilded_rose gilded_rose_test.py && coverage report -m && coverage html
+	bash run_test.sh
 
 serv:
-	nohup python -m http.server 8000 -d htmlcov &
+	bash run_web_server.sh
