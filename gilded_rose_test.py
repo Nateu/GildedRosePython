@@ -8,7 +8,6 @@ def doUpdateItem(name: str, sell_in: int, quality: int):
     app.update_quality()
     return str(app.items[0])
 
-
 class GildedRoseTest(unittest.TestCase):
     def test_main(self):
         combination_approvals.verify_all_combinations(doUpdateItem, [[
@@ -16,11 +15,6 @@ class GildedRoseTest(unittest.TestCase):
             'Sulfuras, Hand of Ragnaros'
         ], [-1, 2, 0, 6, 11], [0, 1, 49, 50]])
 
-
-# Mutation testing is a good thing to do as well!
-# By doing manual mutations in the production code 
-# we can check if our test set is strong enough.
-# https://leanpub.com/b/codekatas
 
 if __name__ == "__main__":
     unittest.main()
