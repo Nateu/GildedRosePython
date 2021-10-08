@@ -2,11 +2,13 @@ import unittest
 from approvaltests import combination_approvals
 from gilded_rose import Item, GildedRose
 
+
 def doUpdateItem(name: str, sell_in: int, quality: int):
     item = Item(name, sell_in, quality)
     app = GildedRose([item])
     app.update_quality()
     return str(app.items[0])
+
 
 class GildedRoseTest(unittest.TestCase):
     def test_main(self):
