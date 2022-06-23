@@ -35,6 +35,11 @@ class GildedRose:
         elif item.name == "Sulfuras, Hand of Ragnaros":
             pass
 
+        elif item.name == "Magic desk of cards":
+            self.decrease_item_quality_by_1_if_above_0(item)
+            self.decrease_item_quality_by_1_if_above_0(item)
+            
+        
         else:
             self.decrease_item_quality_by_1_if_above_0(item)
             self.decrease_sell_in_by_1(item)
