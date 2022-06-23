@@ -3,53 +3,43 @@ class GildedRose:
     def __init__(self, items):
         self.items = items
 
-    def increase_item_quality_by_1_if_below_50(self, item):
-        if item.quality < 50:
-            item.quality = item.quality + 1
-
-    def decrease_item_quality_by_1_if_above_0(self, item):
-        if item.quality > 0:
-            item.quality = item.quality - 1
-
-    def decrease_sell_in_by_1(self, item):
-        item.sell_in = item.sell_in - 1
-    
     def update_item(self, item):
         if item.name == "Aged Brie":
-            self.increase_item_quality_by_1_if_below_50(item)
-            self.decrease_sell_in_by_1(item)
+            if item.quality < 50:
+                item.quality = item.quality + 1
+            item.sell_in = item.sell_in - 1
             if item.sell_in < 0:
-                self.increase_item_quality_by_1_if_below_50(item)
-
+                if item.quality < 50:
+                    item.quality = item.quality + 1
         elif item.name == "Backstage passes to a TAFKAL80ETC concert":
             if item.quality < 50:
-                self.increase_item_quality_by_1_if_below_50(item)
+                item.quality = item.quality + 1
                 if item.sell_in < 11:
-                    self.increase_item_quality_by_1_if_below_50(item)
+                    if item.quality < 50:
+                        item.quality = item.quality + 1
                 if item.sell_in < 6:
-                    self.increase_item_quality_by_1_if_below_50(item)
-            self.decrease_sell_in_by_1(item)
+                    if item.quality < 50:
+                        item.quality = item.quality + 1
+            item.sell_in = item.sell_in - 1
             if item.sell_in < 0:
-                item.quality = 0
-
+                item.quality = item.quality - item.quality
         elif item.name == "Sulfuras, Hand of Ragnaros":
             pass
-
-        elif item.name == "Magic desk of cards":
-            self.decrease_item_quality_by_1_if_above_0(item)
-            self.decrease_item_quality_by_1_if_above_0(item)
-            
-        
         else:
-            self.decrease_item_quality_by_1_if_above_0(item)
-            self.decrease_sell_in_by_1(item)
+            if item.quality > 0:
+                if item.name != "Sulfuras, Hand of Ragnaros":
+                    item.quality = item.quality - 1
+            if item.name != "Sulfuras, Hand of Ragnaros":
+                item.sell_in = item.sell_in - 1
             if item.sell_in < 0:
-                self.decrease_item_quality_by_1_if_above_0(item)
+                if item.quality > 0:
+                    if item.name != "Sulfuras, Hand of Ragnaros":
+                        item.quality = item.quality - 1
 
+    
     def update_quality(self):
         for item in self.items:
             self.update_item(item)
-
 
 
 class Item:

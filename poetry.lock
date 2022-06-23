@@ -153,7 +153,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "f6d4db16241f36d207d72d6f0c3b062bf1bb7442d3ce1ba389bff1819a799449"
+content-hash = "7bc900b4f3cb40ae6b002141d6df3c666ebdd57138e135c0e10896dd6ddf1fae"
 
 [metadata.files]
 approvaltests = [
